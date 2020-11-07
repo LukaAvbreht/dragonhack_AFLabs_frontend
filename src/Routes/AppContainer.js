@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import ZemljevidNesrec from "./Subroutes/ZemljevidNeserc";
 import StatistikaNesrec from "./Subroutes/StatistikaNesrec";
+import Nesrece from "./Subroutes/Nesrece";
 import Home from "./Subroutes/Home";
 import SeznamNesrec from "./Subroutes/SeznamNesrec";
 import NesrecaDetail from "./Subroutes/NesrecaDetail";
