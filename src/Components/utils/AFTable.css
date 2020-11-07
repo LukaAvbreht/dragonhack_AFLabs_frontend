@@ -1,0 +1,16 @@
+.ReactTable {
+    border: none !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rt-noData{
+    display: none !important;
+}
+.rt-td {
+    align-self: center !important;
+}
+.bg-lightred {
+    background-color: #ffb2b2 !important;
+}
+.ReactTable.-highlight .rt-tbody .rt-tr:not(.-padRow):hover{background:rgba(0,0,0,0.15)}
