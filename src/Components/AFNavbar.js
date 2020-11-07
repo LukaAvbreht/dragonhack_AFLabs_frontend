@@ -34,6 +34,13 @@ function AFNavbar() {
                 {/*    <FormControl type="text" placeholder="Search" className="mr-sm-2" />*/}
                 {/*    <Button variant="outline-success">Search</Button>*/}
                 {/*</Form>*/}
+                <img
+                    src="/appicon.png"
+                    width="60"
+                    height="60"
+                    className="d-inline-block align-top"
+                    alt="React Bootstrap logo"
+                />
             </Navbar.Collapse>
         </Navbar>
 
