@@ -3,16 +3,11 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import ZemljevidNesrec from "./Subroutes/ZemljevidNeserc";
 import StatistikaNesrec from "./Subroutes/StatistikaNesrec";
 import Home from "./Subroutes/Home";
-import AFNavbar from "../Components/AFNavbar";
 
-
-
-function AppContainer() {
+function AppContainer(props) {
     return (
 
-        <div>
-            <AFNavbar />
-
+        <>
             <Router>
                 <Switch>
 
@@ -31,7 +26,13 @@ function AppContainer() {
                 </Switch>
             </Router>
 
-        </div>
+
+
+            <div>
+                {props.childrenl}
+            </div>
+
+        </>
 
 
 

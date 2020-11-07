@@ -6,25 +6,31 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import NotFound from "./Routes/NotFound";
 import AppContainer from "./Routes/AppContainer";
+import AFNavbar from "./Components/AFNavbar";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Router>
-          <Switch>
-
-            <Route path="/404" exact={true}>
-              <NotFound />
-            </Route>
-
-            <Route path={'/'}>
-              <AppContainer />
-            </Route>
-
-          </Switch>
-        </Router>
+          <AFNavbar />
       </header>
+
+        <body className="App-body">
+        <Router>
+            <Switch>
+
+                <Route path="/404" exact={true}>
+                    <NotFound />
+                </Route>
+
+                <Route path={'/'}>
+                    <AppContainer />
+                </Route>
+
+            </Switch>
+        </Router>
+
+        </body>
     </div>
   );
 }

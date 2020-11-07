@@ -10,7 +10,7 @@ import Form from 'react-bootstrap/Form'
 
 function AFNavbar() {
     return (
-        <Navbar bg="light" expand="lg" fixed="top">
+        <Navbar bg="light" expand="lg" fixed="top" className="sticky-nav">
             <Navbar.Brand href="/home">Pasovček pravi</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
