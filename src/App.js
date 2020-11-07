@@ -10,7 +10,7 @@ import AFNavbar from "./Components/AFNavbar";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App appstyle">
       <header className="App-header">
           <AFNavbar />
       </header>
