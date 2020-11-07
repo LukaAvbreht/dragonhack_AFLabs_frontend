@@ -1,4 +1,19 @@
-.sticky-nav {
-    position: sticky;
+/*.sticky-nav {*/
+/*    position: sticky;*/
+/*    top: 0;*/
+/*}*/
+
+.navbar {
     top: 0;
+    height: 5rem;
+}
+
+.navbar-brand {
+    font-size: 30px;
+    height: 10px;
+    line-height: 2px;
+}
+
+.navbar-nav {
+    font-size: 25px;
 }

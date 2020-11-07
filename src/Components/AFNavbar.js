@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import {Container} from "react-bootstrap";
 
-import './navbar_style.css'
+import './AFNavbar.css'
 
 function AFNavbar() {
     return (
