@@ -18,7 +18,6 @@ function AFNavbar() {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto" expand="lg">
-                    <Nav.Link href="/home">Domov</Nav.Link>
                     <Nav.Link href="/stat">Statistika</Nav.Link>
                     <Nav.Link href="/map">Zemljevid</Nav.Link>
                     <Nav.Link href="/excd">Nesreče</Nav.Link>
