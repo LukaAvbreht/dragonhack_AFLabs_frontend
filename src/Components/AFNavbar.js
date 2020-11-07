@@ -7,6 +7,9 @@ import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 
 import Form from 'react-bootstrap/Form'
+import {Container} from "react-bootstrap";
+
+import './navbar_style.css'
 
 function AFNavbar() {
     return (
