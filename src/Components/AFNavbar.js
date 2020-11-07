@@ -11,13 +11,14 @@ import Form from 'react-bootstrap/Form'
 function AFNavbar() {
     return (
         <Navbar bg="light" expand="lg" fixed="top">
-            <Navbar.Brand href="/home">Pasovček pravi</Navbar.Brand>
+            <Navbar.Brand href="/home">Pasavec pravi: </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto" expand="lg">
-                    <Nav.Link href="/home">Domov</Nav.Link>
-                    <Nav.Link href="/stat">Statistika</Nav.Link>
-                    <Nav.Link href="/map">Zemljevid</Nav.Link>
+                    <Nav.Link href="/home" className="mr-2 ml-2">Domov</Nav.Link>
+                    <Nav.Link href="/stat" className="mr-2 ml-2">Statistika</Nav.Link>
+                    <Nav.Link href="/map" className="mr-2 ml-2">Zemljevid</Nav.Link>
+                    <Nav.Link href="/nesrece" className="mr-2 ml-2">Prometne nesreče</Nav.Link>
 
                     {/*<NavDropdown title="Dropdown" id="basic-nav-dropdown">*/}
                     {/*    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>*/}

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import ZemljevidNesrec from "./Subroutes/ZemljevidNeserc";
 import StatistikaNesrec from "./Subroutes/StatistikaNesrec";
+import Nesrece from "./Subroutes/Nesrece";
 import Home from "./Subroutes/Home";
 import AFNavbar from "../Components/AFNavbar";
 
@@ -26,6 +27,10 @@ function AppContainer() {
 
                     <Route path="/map" exact={true}>
                         <ZemljevidNesrec />
+                    </Route>
+
+                    <Route path="/nesrece" exact={true}>
+                        <Nesrece />
                     </Route>
 
                 </Switch>
