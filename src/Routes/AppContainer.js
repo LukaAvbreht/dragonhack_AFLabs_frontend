@@ -1,32 +1,39 @@
 import React, {useState} from "react";
-import Button from "react-bootstrap/Button";
-import Toast from "react-bootstrap/Toast";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import ZemljevidNesrec from "./Subroutes/ZemljevidNeserc";
+import StatistikaNesrec from "./Subroutes/StatistikaNesrec";
+import Home from "./Subroutes/Home";
+import AFNavbar from "../Components/AFNavbar";
 
 
-const ExampleToast = ({children}) => {
-    const [show, toggleShow] = useState(true);
-
-    return (
-        <div>
-            {!show && <Button onClick={() => toggleShow(true)}>Show Toast</Button>}
-            <Toast show={show} onClose={() => toggleShow(false)}>
-                <Toast.Header>
-                    <strong className="mr-auto">React-Bootstrap</strong>
-                </Toast.Header>
-                <Toast.Body>{children}</Toast.Body>
-            </Toast>
-        </div>
-    );
-};
 
 function AppContainer() {
     return (
-        <ExampleToast>
-            We now have Toasts
-            <span role="img" aria-label="tada">
-                🎉
-            </span>
-        </ExampleToast>
+
+        <div>
+            <AFNavbar />
+
+            <Router>
+                <Switch>
+
+                    <Route path="/" exact={true}>
+                        <Home />
+                    </Route>
+
+                    <Route path="/stat" exact={true}>
+                        <StatistikaNesrec />
+                    </Route>
+
+                    <Route path="/map" exact={true}>
+                        <ZemljevidNesrec />
+                    </Route>
+
+                </Switch>
+            </Router>
+
+        </div>
+
+
 
     );
 }
