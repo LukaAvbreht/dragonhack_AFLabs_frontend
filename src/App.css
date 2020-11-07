@@ -29,7 +29,9 @@
   display: flex;
   margin-top: 15px;
   margin-bottom: 15px;
-  height: 100vh;
+  height: auto !important;
+  height: 100%; /* IE 6 Workaround */
+  min-height: 100vh;
 
   color: azure;
 }
