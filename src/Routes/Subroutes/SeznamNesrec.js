@@ -4,8 +4,9 @@ import {usePagination, useTable} from 'react-table'
 
 import apiClient from '../../api/ApiClient';
 import {useQuery} from "react-query";
-import {Button} from "react-bootstrap";
+import {Container, Row, Col} from "react-bootstrap";
 import AFTable from "../../Components/utils/AFTable";
+
 
 // "zaporedna_stevilka", "klasifikacija", "datum", "ura", "v_naselju",
 //     "lokacija", "vrsta_ceste", "sifra_ceste", "sifra_odseka_ulice", "vzrok_nesrece",
@@ -18,6 +19,7 @@ function SeznamNesrec() {
             {
                 Header: 'ID',
                 accessor: 'zaporedna_stevilka',
+                width: 50,
             },
             {
                 Header: 'Datum',
@@ -41,24 +43,29 @@ function SeznamNesrec() {
             },
         ]
 
-    const [previosPage,setPreviousPage] = useState();
+    const [previousPage,setPreviousPage] = useState();
+    const [canPreviousPage,setCanPreviousPage] = useState();
     const [nextPage,setNextPage] = useState();
+    const [canNextPage,setCanNextPage] = useState();
     const [count,setCount] = useState();
+    const [pageNumber,setPageNumber] = useState();
+    // const [allPagesNumber,stAllPagesNumber] = useState();
     const [pageData, setPageData] = useState([])
 
-    async function fetchData() {
+    async function fetchData(url = '/nesrece') {
         try {
-            const response = await apiClient('/nesrece',
+            const response = await apiClient(url,
                 // {
                 // params: {
                 //     ID: 12345
                 //     }
                 // }
             );
-            console.log(response);
-            console.log(response.data);
             setPreviousPage(response.data.previous);
+            setCanPreviousPage(response.data.previous !== null);
             setNextPage(response.data.next);
+            setCanNextPage(response.data.next !== null);
+            setPageNumber(response.data.page_number);
             setCount(response.data.count);
             const data = response.data.results.map(value => ({...value}) )
             await setPageData(data)
@@ -76,10 +83,32 @@ function SeznamNesrec() {
     useEffect( () => {fetchData()}, [])
 
     return (
-        <AFTable columns={columns}
-                 data={pageData}
-                 defaultPageSize={20}
-                 minRows={20}/>
+        <>
+            <Container>
+                <Row>
+                    <AFTable columns={columns}
+                     data={pageData}
+                     defaultPageSize={20}
+                     minRows={20}/>
+                </Row>
+
+            <Row>
+                <Col xs={4}> </Col>
+                <Col xs={1}>
+                    <button onClick={() => fetchData(previousPage)} disabled={!canPreviousPage}>
+                    {'<<'}
+                    </button>
+                </Col>
+                <Col xs={2}> {'Page number : '} {pageNumber + 1} </Col>
+                <Col xs={1}>
+                    <button onClick={() => fetchData(nextPage)} disabled={!canNextPage}>
+                        {'>>'}
+                    </button>
+                </Col>
+                <Col xs={4}> {'Total of : '} {count} </Col>
+            </Row>
+            </Container>
+            </>
     );
 }
 
