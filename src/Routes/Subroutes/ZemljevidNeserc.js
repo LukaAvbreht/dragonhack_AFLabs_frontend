@@ -39,13 +39,13 @@ function ZemljevidNesrec() {
     ]
 
     return (
-        <div className="appcontainer">
+        <div className="appcontainer p-4">
             <Row>
-                <Col md={6}>
+                <Col md={7}>
                     Tukaj bo zemljevid
                     { state.gostotaPrometa }
                 </Col>
-                <Col md={6}>
+                <Col md={5}>
                     <Formik initialValues={state} onSubmit={submitFilter}>
                     {formik => 
                         <Form>

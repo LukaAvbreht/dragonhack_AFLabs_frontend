@@ -17,10 +17,6 @@ function SeznamNesrec() {
     const columns = [
             {
                 Header: 'ID',
-                accessor: 'id',
-            },
-            {
-                Header: 'PoliceID',
                 accessor: 'zaporedna_stevilka',
             },
             {
@@ -33,26 +29,22 @@ function SeznamNesrec() {
             },
             {
                 Header: 'Tip',
-                accessor: 'klasifikacija',
+                accessor: 'tip_nesrece.ime',
             },
             {
-                Header: 'Naselje',
-                accessor: 'v_naselju',
+                Header: 'Vzrok nesreče',
+                accessor: 'vzrok_nesrece.ime',
             },
             {
-                Header: 'Lokacija',
-                accessor: 'lokacija',
-            },
-            {
-                Header: 'Vrsta Ceste',
-                accessor: 'vrsta_ceste',
+                Header: 'Vreme',
+                accessor: 'vremenske_okoliscine.ime',
             },
         ]
 
     const [previosPage,setPreviousPage] = useState();
     const [nextPage,setNextPage] = useState();
     const [count,setCount] = useState();
-    const [pageData,setPageData] = useState([])
+    const [pageData, setPageData] = useState([])
 
     async function fetchData() {
         try {
@@ -68,18 +60,20 @@ function SeznamNesrec() {
             setPreviousPage(response.data.previous);
             setNextPage(response.data.next);
             setCount(response.data.count);
-            // setPageData(response.data.results)
-            for(let i = 0; i< response.data.results.length; i++){
-                console.log(response.data.results[i]);
-                let newElement = response.data.results[i];
-                setPageData(oldArray => [...oldArray, newElement]);
-            }
+            const data = response.data.results.map(value => ({...value}) )
+            await setPageData(data)
+            // // setPageData(response.data.results)
+            // for(let i = 0; i< response.data.results.length; i++){
+            //     console.log(response.data.results[i]);
+            //     let newElement = response.data.results[i];
+            //     setPageData(oldArray => [...oldArray, newElement]);
+            // }
         } catch (error) {
             console.log(error);
         }
     }
 
-    useEffect( () => {fetchData()},[])
+    useEffect( () => {fetchData()}, [])
 
     return (
         <AFTable columns={columns}
