@@ -21,6 +21,7 @@ function AFNavbar() {
                     <Nav.Link href="/home">Domov</Nav.Link>
                     <Nav.Link href="/stat">Statistika</Nav.Link>
                     <Nav.Link href="/map">Zemljevid</Nav.Link>
+                    <Nav.Link href="/excd">Nesreče</Nav.Link>
 
                     {/*<NavDropdown title="Dropdown" id="basic-nav-dropdown">*/}
                     {/*    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>*/}
