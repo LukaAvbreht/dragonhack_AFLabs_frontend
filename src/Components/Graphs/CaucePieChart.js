@@ -22,8 +22,8 @@ function CausePieChart(props) {
                 style: {
                     color:  '#ffffff'
                 },
-                text: 'Delež nesreč po vzroku',
-                align: 'left'
+                text: 'Delež nesreč glede na vzrok',
+                align: 'center'
             },
             responsive: [{
                 breakpoint: 480,
@@ -78,7 +78,7 @@ function CausePieChart(props) {
 
     return (
         <div id="chart" className='customtextc'>
-            <ReactApexChart options={state.options} series={state.series} type="pie" width={380} />
+            <ReactApexChart options={state.options} series={state.series} type="pie" height={300} />
         </div>
     );
 }

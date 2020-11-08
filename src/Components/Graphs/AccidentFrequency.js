@@ -38,7 +38,7 @@ function AccidentFrequencyGraph(props) {
                 title: {
                     color: '#ffffff',
                     text: 'Število nesreč na mesec',
-                    align: 'left'
+                    align: 'center'
                 },
                 fill: {
                     type: 'gradient',
