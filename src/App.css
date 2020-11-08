@@ -30,9 +30,9 @@
   height: auto !important;
   height: 100%; /* IE 6 Workaround */
   min-height: 100vh;
-
   color: azure;
 }
+
 
 .App-link {
   color: #61dafb;

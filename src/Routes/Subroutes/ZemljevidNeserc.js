@@ -163,7 +163,7 @@ function ZemljevidNesrec() {
                                     <Label for="year">Leto:</Label>
                                 </Col>
                                 <Col style={{ "color" : "black"}} md={8}>
-                                    <Select style={{"color" : "red" }} name="year" options={options.leto} onChange={e => handleSelectChange("year", e, formik)} placeholder="Vsa leta"/>
+                                    <Select style={{"color" : "red" }} name="year" options={options.leto} onChange={e => handleSelectChange("year", e, formik)} placeholder="Vsa leta: 2000 - 2020"/>
                                 </Col>
                             </Row>
                             
