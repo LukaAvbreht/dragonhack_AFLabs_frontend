@@ -3,6 +3,7 @@ import { Field, Form, Formik } from "formik";
 import {Col, Label, Row, FormGroup, Button } from "reactstrap";
 import Select from "react-select";
 import apiClient from "../../api/ApiClient";
+import Zemljevid from "./Zemljevid";
 
 
 function ZemljevidNesrec() {
@@ -32,12 +33,14 @@ function ZemljevidNesrec() {
 
     const [URL, setURL] = useState("")
     const [naseljeQuery, setNaseljeQuery] = useState("")
+    const [steviloNesrec, setSteviloNesrec] = useState(0)
+    const [heatMapPoints, setHeatMapPoints] = useState([])
 
     function getURL() {
         let query = "?"
         for (let key in state) {
             if (state[key]) {
-                query += `${key}=${state[key]}`
+                query += `${key}=${state[key]}&`
             }
         }
         return query;
@@ -62,6 +65,13 @@ function ZemljevidNesrec() {
         if (query != naseljeQuery) {
             setNaseljeQuery(query)
         }
+    }
+
+    async function fetchHeatMapPoints(){
+        const response = await apiClient(`/nesrece/geolocation?lat=${46.056946}&lon=${14.505751}&x=0.03&y=0.03`)
+        const points = response.data.map(row => ({"lng" : row.long, "lat" : row.lat}))
+        setHeatMapPoints(points)
+        console.log(points)
     }
 
 
@@ -101,6 +111,7 @@ function ZemljevidNesrec() {
 
     useEffect(() => {
         getOptions()
+        fetchHeatMapPoints()
     }, [])
 
     useEffect(() => {
@@ -111,8 +122,8 @@ function ZemljevidNesrec() {
         <div className="appcontainer p-4">
             <Row>
                 <Col md={7}>
-                    Tukaj bo zemljevid
                     { URL }
+                    <Zemljevid heatMapPoints={heatMapPoints}/>
                 </Col>
                 <Col md={5}>
                     <Formik initialValues={state} onSubmit={submitFilter}>
@@ -122,7 +133,7 @@ function ZemljevidNesrec() {
                                 <Col className="" md={4}>
                                     <Label for="leto">Leto:</Label>
                                 </Col>
-                                <Col md={8}>
+                                <Col style={{ "color" : "black"}} md={8}>
                                     <Select style={{"color" : "red" }} name="leto" options={options.leto} onChange={e => handleSelectChange("leto", e, formik)} placeholder="Vsa leta"/>
                                 </Col>
                             </Row>
@@ -131,7 +142,7 @@ function ZemljevidNesrec() {
                                 <Col className="" md={4}>
                                     <Label for="text_ceste_naselja">Naselje:</Label>
                                 </Col>
-                                <Col md={8}>
+                                <Col style={{ "color" : "black"}} md={8}>
                                     <Select style={{"color" : "red" }} 
                                             name="text_ceste_naselja" 
                                             options={options.tekstCesteNaselja}
@@ -145,7 +156,7 @@ function ZemljevidNesrec() {
                                 <Col className="" md={4}>
                                     <Label for="opis_kraja">Opis kraja:</Label>
                                 </Col>
-                                <Col md={8}>
+                                <Col style={{ "color" : "black"}} md={8}>
                                     <Select style={{"color" : "red" }} name="opis_kraja" options={options.opisKraja} onChange={e => handleSelectChange("opis_kraja", e, formik)} placeholder="Krizišče/Cesta/Parkirišče, ..."/>
                                 </Col>
                             </Row>
@@ -154,7 +165,7 @@ function ZemljevidNesrec() {
                                 <Col className="" md={4}>
                                     <Label for="vzrok_nesrece">Vzrok nesreče:</Label>
                                 </Col>
-                                <Col md={8}>
+                                <Col style={{ "color" : "black"}} md={8}>
                                     <Select style={{"color" : "red" }} name="vzrok_nesrece" options={options.vzrokNesrece} onChange={e => handleSelectChange("vzrok_nesrece", e, formik)} placeholder="Neprilagojena hitrost ..."/>
                                 </Col>
                             </Row>
@@ -163,7 +174,7 @@ function ZemljevidNesrec() {
                                 <Col className="" md={4}>
                                     <Label for="tip_nesrece">Tip nesreče:</Label>
                                 </Col>
-                                <Col md={8}>
+                                <Col style={{ "color" : "black"}} md={8}>
                                     <Select style={{"color" : "red" }} name="tip_nesrece" options={options.tipNesrece} onChange={e => handleSelectChange("tip_nesrece", e, formik)} placeholder="Bočno Trčenje/Nalet/..."/>
                                 </Col>
                             </Row>
@@ -172,7 +183,7 @@ function ZemljevidNesrec() {
                                 <Col className="" md={4}>
                                     <Label for="vremenske_okoliscine">Vreme:</Label>
                                 </Col>
-                                <Col md={8}>
+                                <Col style={{ "color" : "black"}} md={8}>
                                     <Select style={{"color" : "red" }} name="vremenske_okoliscine" options={options.vreme} onChange={e => handleSelectChange("vremenske_okoliscine", e, formik)} placeholder="Sonce/Dež/Megla/..."/>
                                 </Col>
                             </Row>
@@ -181,7 +192,7 @@ function ZemljevidNesrec() {
                                 <Col className="" md={4}>
                                     <Label for="povzrociteljStarost">Starost povzročitelja:</Label>
                                 </Col>
-                                <Col md={8}>
+                                <Col style={{ "color" : "black"}} md={8}>
                                     <Select style={{"color" : "red" }} name="povzrociteljStarost" options={options.povzrociteljStarost} onChange={e => handleSelectChange("povzrociteljStarost", e, formik)} placeholder="e.g. 20-30, 30-40"/>
                                 </Col>
                             </Row>
@@ -189,7 +200,7 @@ function ZemljevidNesrec() {
                                 <Col className="" md={4}>
                                     <Label for="povzrociteljSpol">Spol povzročitelja:</Label>
                                 </Col>
-                                <Col md={8}>
+                                <Col style={{ "color" : "black"}} md={8}>
                                     <Select style={{"color" : "red" }} name="povzrociteljSpol" options={options.povzrociteljSpol} onChange={e => handleSelectChange("povzrociteljSpol", e, formik)} placeholder="Moški/Ženska"/>
                                 </Col>
                             </Row>
@@ -197,7 +208,7 @@ function ZemljevidNesrec() {
                                 <Col className="" md={4}>
                                     <Label for="povzrociteljVinjenost">Vinjenost:</Label>
                                 </Col>
-                                <Col md={8}>
+                                <Col style={{ "color" : "black"}} md={8}>
                                     <Select style={{"color" : "red" }} name="povzrociteljVinjenost" options={options.povzrociteljVinjenost} onChange={e => handleSelectChange("povzrociteljVinjenost", e, formik)} placeholder="Nad koliko promilov?"/>
                                 </Col>
                             </Row>
