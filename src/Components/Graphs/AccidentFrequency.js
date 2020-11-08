@@ -53,7 +53,7 @@ function AccidentFrequencyGraph(props) {
                 yaxis: {
                     labels: {
                         formatter: function (val) {
-                            return (val / 1000000).toFixed(0);
+                            return (val).toFixed(0);
                         },
                     },
                     title: {
