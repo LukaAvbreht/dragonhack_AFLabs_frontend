@@ -38,7 +38,7 @@ function AccidentFrequencyGraph(props) {
                 title: {
                     color: '#ffffff',
                     text: 'Število nesreč na mesec',
-                    align: 'left'
+                    align: 'center'
                 },
                 fill: {
                     type: 'gradient',
@@ -84,7 +84,6 @@ function AccidentFrequencyGraph(props) {
     async function fetchData(){
         try {
             const response = await apiClient.get("/nesrece/mesecna_statistika");
-            console.log("Parsing data")
             const xDataArray = [];
             const yDataArray = [];
             const stat_Data = Object.entries(response.data)
