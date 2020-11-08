@@ -23,7 +23,8 @@ const Zemljevid = (props) => {
         "positions" : props.heatMapPoints,
         "options" : {
             "opacity" : 0.5,
-            "radius" : 15
+            "radius" : 15,
+            "streetViewControl" : true
         }
     }
       
@@ -38,12 +39,9 @@ const Zemljevid = (props) => {
           defaultZoom={13}
           heatmapLibrary={true}
           heatmap={layerData}
+          onDragEnd={(e) => props.handleDragEnd(e)}
+          yesIWantToUseGoogleMapApiInternals={true}
         >
-          <AnyReactComponent
-            lng={14.505751}
-            lat={46.056946}
-            text="My Marker"
-          />
         </GoogleMapReact>
       </div>
     )

@@ -89,6 +89,10 @@ function ZemljevidNesrec() {
         return true;
     }
 
+    async function handleDragEnd(e){
+        console.log(e)
+    }
+
     async function getOptions() {
         try {
             const response = await apiClient("/other/other")
@@ -123,7 +127,7 @@ function ZemljevidNesrec() {
             <Row>
                 <Col md={7}>
                     { URL }
-                    <Zemljevid heatMapPoints={heatMapPoints}/>
+                    <Zemljevid heatMapPoints={heatMapPoints} handleDragEnd={handleDragEnd} />
                 </Col>
                 <Col md={5}>
                     <Formik initialValues={state} onSubmit={submitFilter}>
