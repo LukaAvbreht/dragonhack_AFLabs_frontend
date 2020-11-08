@@ -8,7 +8,7 @@ import Zemljevid from "./Zemljevid";
 
 function ZemljevidNesrec() {
     const [state, setState] = useState({
-        "leto" : null,
+        "year" : null,
         "text_ceste_naselja" : null,
         "opis_kraja" : null,
         "vzrok_nesrece" : null,
@@ -16,7 +16,7 @@ function ZemljevidNesrec() {
         "vremenske_okoliscine" : null,
         "povzrociteljStarost" : null,
         "povzrociteljSpol" : null,
-        "povzrociteljVinjenost" : null
+        "povzrocitelj_alkohol" : null
     })
 
     function range(begin, end){
@@ -27,6 +27,8 @@ function ZemljevidNesrec() {
         return arr;
      }
 
+     const vinjenostOptions = range(0, 6).map(el => ({"value" : el/2, "label" : `Nad ${el/2} promilov`}))
+
     const [options, setOptions] = useState({
         "leto" : range(2000, 2020).map(el => ({"value" : el, "label" : el})),
         "tekstCesteNaselja" : [],
@@ -36,7 +38,7 @@ function ZemljevidNesrec() {
         "vreme" : [],
         "povzrociteljStarost" : [],
         "povzrociteljSpol" : [],
-        "povzrociteljVinjenost" : []
+        "povzrociteljVinjenost" : vinjenostOptions
     })
 
     const [query_parts, set_query_parts] = useState([])
@@ -79,6 +81,7 @@ function ZemljevidNesrec() {
     }
 
     async function fetchHeatMapPoints(){
+        console.log("Fetching heat points")
         let url = "/nesrece/geolocation?"
 
         let parts = query_parts;
@@ -157,10 +160,10 @@ function ZemljevidNesrec() {
                         <Form>
                             <Row className="m-3">
                                 <Col className="" md={4}>
-                                    <Label for="leto">Leto:</Label>
+                                    <Label for="year">Leto:</Label>
                                 </Col>
                                 <Col style={{ "color" : "black"}} md={8}>
-                                    <Select style={{"color" : "red" }} name="leto" options={options.leto} onChange={e => handleSelectChange("leto", e, formik)} placeholder="Vsa leta"/>
+                                    <Select style={{"color" : "red" }} name="year" options={options.leto} onChange={e => handleSelectChange("year", e, formik)} placeholder="Vsa leta"/>
                                 </Col>
                             </Row>
                             
@@ -224,18 +227,18 @@ function ZemljevidNesrec() {
                             </Row>
                             <Row className="m-3">
                                 <Col className="" md={4}>
-                                    <Label for="povzrociteljSpol">Spol povzročitelja:</Label>
+                                    <Label for="povzrocitelj_alkohol">Vinjenost:</Label>
                                 </Col>
                                 <Col style={{ "color" : "black"}} md={8}>
-                                    <Select style={{"color" : "red" }} name="povzrociteljSpol" options={options.povzrociteljSpol} onChange={e => handleSelectChange("povzrociteljSpol", e, formik)} placeholder="Moški/Ženska"/>
+                                    <Select style={{"color" : "red" }} name="povzrocitelj_alkohol" options={options.povzrociteljVinjenost} onChange={e => handleSelectChange("povzrocitelj_alkohol", e, formik)} placeholder="Nad koliko promilov?"/>
                                 </Col>
                             </Row>
                             <Row className="m-3">
                                 <Col className="" md={4}>
-                                    <Label for="povzrociteljVinjenost">Vinjenost:</Label>
+                                    <Label for="povzrociteljSpol">Spol povzročitelja:</Label>
                                 </Col>
                                 <Col style={{ "color" : "black"}} md={8}>
-                                    <Select style={{"color" : "red" }} name="povzrociteljVinjenost" options={options.povzrociteljVinjenost} onChange={e => handleSelectChange("povzrociteljVinjenost", e, formik)} placeholder="Nad koliko promilov?"/>
+                                    <Select style={{"color" : "red" }} name="povzrociteljSpol" options={options.povzrociteljSpol} onChange={e => handleSelectChange("povzrociteljSpol", e, formik)} placeholder="Moški/Ženska"/>
                                 </Col>
                             </Row>
                             
