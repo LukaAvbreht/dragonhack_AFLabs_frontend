@@ -1,4 +1,5 @@
 import GoogleMapReact from "google-map-react";
+import {useState} from "react"
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -24,8 +25,34 @@ const Zemljevid = (props) => {
         "options" : {
             "opacity" : 0.5,
             "radius" : 15,
-            "streetViewControl" : true
         }
+    }
+
+    const [zoom, setZoom] = useState(13);
+    const [radius, setRadius] = useState(15);
+
+    const zoomRadius = {
+        10 : 5,
+        11 : 5,
+        12 : 8,
+        13 : 15,
+        14 : 20,
+        15 : 30,
+        16 : 50
+    }
+
+    function handleZoomChange(e){
+        setZoom(e)
+        let radiusValue;
+        if (e>16){
+            radiusValue=50
+        } else if (e < 10) {
+            radiusValue=5
+        } else {
+            radiusValue=zoomRadius[e]
+        }
+        setRadius(radiusValue)
+        console.log(zoom, radius)
     }
       
     return (
@@ -36,11 +63,22 @@ const Zemljevid = (props) => {
             lng: 14.505751,
             lat: 46.056946
           }}
-          defaultZoom={13}
+          defaultZoom={zoom}
           heatmapLibrary={true}
-          heatmap={layerData}
+          heatmap={{
+              "positions" : props.heatMapPoints,
+              "options" : {
+                "opacity" : 0.6,
+                "radius" : radius,
+              }
+          }}
+          options={{
+              "streetViewControl" : true
+          }}
           onDragEnd={(e) => props.handleDragEnd(e)}
           yesIWantToUseGoogleMapApiInternals={true}
+          onZoomAnimationEnd={e => handleZoomChange(e)}
+          streetViewControl={true}
         >
         </GoogleMapReact>
       </div>
