@@ -8,7 +8,7 @@ function StatistikaNesrec() {
 
     return (
         <Container fluid="xl" >
-            <h2>Mesečna število nesreč med leti 2000 - 2020</h2>
+            <h2 className="mt-4">Mesečna število nesreč med leti 2000 - 2020</h2>
             <Row className="mt-5 mb-3">
                 <Col sm={8}>
                     <div>
