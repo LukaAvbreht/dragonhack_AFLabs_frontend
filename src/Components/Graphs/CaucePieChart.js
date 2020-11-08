@@ -17,7 +17,7 @@ function CausePieChart(props) {
                 width: 380,
                 type: 'pie',
             },
-            labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+            labels: ['Neprilagojena hitrost', 'Neprimerna varnostna razdalja', 'Neupoštevanje prednosti', 'Nepravilno prehitevanje', 'Ostalo'],
             title: {
                 style: {
                     color:  '#ffffff'

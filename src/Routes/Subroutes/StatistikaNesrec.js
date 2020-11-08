@@ -8,59 +8,49 @@ function StatistikaNesrec() {
 
     return (
         <Container fluid="xl" >
-            <Row>
+            <h2>Mesečna število nesreč med leti 2000 - 2020</h2>
+            <Row className="mt-5 mb-3">
                 <Col sm={8}>
                     <div>
                         <AccidentFrequencyGraph />
                     </div>
                 </Col>
-                <Col sm={4}> Statistika nesrec </Col>
+                <Col md={4}> Opomba: Hiter design nekaj grafov, za napredne grafe in filterje nam je žal zmanjkalo časa :( Le prvi graf ima prave podatke.</Col>
             </Row>
+            <h2>Delež nesreč glede na vzrok nesreče</h2>
 
-            <Row>
-                Pregled frekvence nesreč po mesecih čez čas
-
-                Ta pregled služi kot demo, za bolj interktiven statističen pregled nam je zmanjkalo časa
-            </Row>
-
-            <Row>
-                .
-            </Row>
-
-            <Row>
-                <Col sm={4}> Delež nesreč glede na vzrok</Col>
+            <Row className="mt-3">
+                <Col sm={4}> 
+                    Graf nam prikazuje delež prometnih nesreč glede na vzrok nesreče. Možni vzroki so recimo: <br/>
+                    <ul>
+                        <li> Neprilagojena hitrost</li>
+                        <li> Neprimerna varnostna razdalja</li>
+                        <li> Neupoštevanje pravil o prednosti</li>
+                        <li> ... </li>
+                    </ul> 
+                </Col>
                 <Col sm={8}>
                     <div>
                         <CausePieChart />
                     </div>
                 </Col>
             </Row>
-
-            <Row>
-                Pregled frekvence nesreč po mesecih čez čas
-
-                Ta pregled služi kot demo, za bolj interktiven statističen pregled nam je zmanjkalo časa
-            </Row>
-
-            <Row>
-                .
-            </Row>
-
-            <Row>
-                <Col sm={8}>
+            
+            <h2 className="mt-3">Prometne nesreče vinjenih voznikov glede na mesec</h2>
+            <Row className="mt-5">
+                <Col sm={6}>
                     <div>
                         <AlkoholRadialChart />
                     </div>
                 </Col>
-                <Col sm={4}> Prometne nesreče zaradi alkohola skozi leto</Col>
+                <Col sm={2}></Col>
+                <Col className="mt-5" sm={4}>
+                    <p>
+                        Graf prikazuje število nesreč vinjenih voznikov v odvisnosti od meseca v letu.
+                    </p>
+                </Col>
 
             </Row>
-
-            <Row>
-                Prometne nesreče čez leto
-            </Row>
-
-
 
         </Container>
 
