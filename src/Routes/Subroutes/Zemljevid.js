@@ -24,7 +24,7 @@ const Zemljevid = (props) => {
         "positions" : props.heatMapPoints,
         "options" : {
             "opacity" : 0.5,
-            "radius" : 15,
+            "radius" : 20,
         }
     }
 
@@ -56,12 +56,16 @@ const Zemljevid = (props) => {
     }
       
     return (
-        <div style={{ height: '80vh', width: '100%' }}>
+        <div style={{ height: '70vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyBnGvM0xkLCQV7z7okLx42ieOhM1vqVIok" }}
           defaultCenter={{
             lng: 14.505751,
             lat: 46.056946
+          }}
+          center={{
+              lng: props.lng,
+              lat: props.lat
           }}
           defaultZoom={zoom}
           heatmapLibrary={true}

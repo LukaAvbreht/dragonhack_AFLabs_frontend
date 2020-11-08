@@ -19,8 +19,16 @@ function ZemljevidNesrec() {
         "povzrociteljVinjenost" : null
     })
 
+    function range(begin, end){
+        var arr = [];
+        for(var i=begin; i<=end; i++){
+            arr.push(i);
+        }
+        return arr;
+     }
+
     const [options, setOptions] = useState({
-        "leto" : [],
+        "leto" : range(2000, 2020).map(el => ({"value" : el, "label" : el})),
         "tekstCesteNaselja" : [],
         "opisKraja" : [],
         "vzrokNesrece" : [],
@@ -31,23 +39,26 @@ function ZemljevidNesrec() {
         "povzrociteljVinjenost" : []
     })
 
-    const [URL, setURL] = useState("")
+    const [query_parts, set_query_parts] = useState([])
     const [naseljeQuery, setNaseljeQuery] = useState("")
     const [steviloNesrec, setSteviloNesrec] = useState(0)
     const [heatMapPoints, setHeatMapPoints] = useState([])
+    const [countHeatMapPoints, setCountHeatMapPoints] = useState(0)
+    const [centerLatitude, setCenterLatittude] = useState()
+    const [centerLongitude, setCenterLongitude] = useState()
 
-    function getURL() {
-        let query = "?"
+    function get_query_parts() {
+        let query = []
         for (let key in state) {
             if (state[key]) {
-                query += `${key}=${state[key]}&`
+                query.push(`${key}=${state[key]}`)
             }
         }
         return query;
     }
 
     function submitFilter() {
-        setURL(getURL())
+        set_query_parts(get_query_parts())
     }
 
     async function handleSelectChange(field, e, formik) {
@@ -68,10 +79,19 @@ function ZemljevidNesrec() {
     }
 
     async function fetchHeatMapPoints(){
-        const response = await apiClient(`/nesrece/geolocation?lat=${46.056946}&lon=${14.505751}&x=0.03&y=0.03`)
-        const points = response.data.map(row => ({"lng" : row.long, "lat" : row.lat}))
+        let url = "/nesrece/geolocation?"
+
+        let parts = query_parts;
+        if (state.text_ceste_naselja) {
+            parts.push(`address_id=${state.text_ceste_naselja}`)
+        }
+        console.log(parts, typeof(parts))
+        const response = await apiClient(url + parts.join("&"))
+        const points = response.data.locations.map(row => ({"lng" : row.long, "lat" : row.lat}))
         setHeatMapPoints(points)
-        console.log(points)
+        setCountHeatMapPoints(points.length)
+        setCenterLatittude(response.data.lat)
+        setCenterLongitude(response.data.long)
     }
 
 
@@ -79,9 +99,7 @@ function ZemljevidNesrec() {
         if (!naseljeQuery) {return true}
 
         const response = await apiClient(`/text_ceste_naselja?contains=${naseljeQuery}`)
-        console.log(response)
         const naselja = response.data.results.map(row => ({"value" : row.id, "label" : row.ime}))
-        console.log(naselja)
         setOptions(prevOptions => ({
             ...prevOptions,
             "tekstCesteNaselja" : naselja
@@ -107,7 +125,6 @@ function ZemljevidNesrec() {
                 "vreme" : vreme,
                 "opisKraja" : opisKraja
             }))
-            console.log(response.data);
         } catch(e) {
             console.log(e);
         }
@@ -122,12 +139,17 @@ function ZemljevidNesrec() {
         fetchNaseljeOptions()
     }, [naseljeQuery])
 
+    useEffect(() => {
+        fetchHeatMapPoints()
+    }, [query_parts])
+
     return (
         <div className="appcontainer p-4">
-            <Row>
+            <h4 className="ml-3">Z izbranimi filtri je bilo na označenem območju skupaj {countHeatMapPoints} prometnih nesreč.</h4>
+            <Row className="p-3">
                 <Col md={7}>
                     { URL }
-                    <Zemljevid heatMapPoints={heatMapPoints} handleDragEnd={handleDragEnd} />
+                    <Zemljevid heatMapPoints={heatMapPoints} handleDragEnd={handleDragEnd} lat={centerLatitude} lng={centerLongitude} />
                 </Col>
                 <Col md={5}>
                     <Formik initialValues={state} onSubmit={submitFilter}>
