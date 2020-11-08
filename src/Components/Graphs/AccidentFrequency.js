@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ReactApexChart from 'react-apexcharts'
 
 import './Graphs.css'
@@ -6,10 +6,13 @@ import apiClient from "../../api/ApiClient";
 
 function AccidentFrequencyGraph(props) {
 
+    const [xAxis,setXAxis] =  useState([]);
+    const [yAxis,setYAxis] =  useState([]);
+
     const state = {
             series: [{
                 name: 'Število nesreč',
-                data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 41, 35, 51, 49, 62, 69, 41, 35, 51]
+                data: yAxis
             }],
             options: {
                 chart: {
@@ -59,7 +62,7 @@ function AccidentFrequencyGraph(props) {
                 },
                 xaxis: {
                     type: 'datetime',
-                    categories: ['2000-11-01', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000', '7/11/2000', '8/11/2000', '9/11/2000', '10/11/2000', '11/11/2000', '12/11/2000', '1/11/2001', '2/11/2001', '3/11/2001','4/11/2001' ,'5/11/2001' ,'6/11/2001'],
+                    categories: xAxis,
                     tickAmount: 10,
                     labels: {
                         formatter: function(value, timestamp, opts) {
@@ -71,7 +74,7 @@ function AccidentFrequencyGraph(props) {
                     shared: false,
                     y: {
                         formatter: function (val) {
-                            return (val / 1000000).toFixed(0)
+                            return (val).toFixed(0)
                         }
                     }
                 }
@@ -80,15 +83,25 @@ function AccidentFrequencyGraph(props) {
 
     async function fetchData(){
         try {
-            const response = await apiClient.get("");
-            state.series.data = response.data.yaxis; // TODO
-            state.options.xaxis.categories = response.data.xaxis // TODO
+            const response = await apiClient.get("/nesrece/mesecna_statistika");
+            console.log("Parsing data")
+            const xDataArray = [];
+            const yDataArray = [];
+            const stat_Data = Object.entries(response.data)
+            for(var i = 0; i < stat_Data.length; i++){
+                xDataArray.push(stat_Data[i][0]);
+                yDataArray.push(stat_Data[i][1]);
+            }
+            setXAxis(xDataArray);
+            setYAxis(yDataArray);
         }
         catch (error) {
             console.log(error);
         }
 
     }
+
+    useEffect(() => fetchData(), [] );
 
     return (
             <div id="chart" className='customtextc'>
