@@ -84,7 +84,6 @@ function AccidentFrequencyGraph(props) {
     async function fetchData(){
         try {
             const response = await apiClient.get("/nesrece/mesecna_statistika");
-            console.log("Parsing data")
             const xDataArray = [];
             const yDataArray = [];
             const stat_Data = Object.entries(response.data)
