@@ -42,6 +42,16 @@ function SeznamNesrec() {
                 width: 150,
             },
             {
+                Header: 'Tip ceste',
+                accessor: 'vrsta_vozisca.ime',
+                width: 150,
+            },
+            {
+                Header: 'Stanje prometa',
+                accessor: 'stanje_prometa.ime',
+                width: 150,
+            },
+            {
                 Header: 'Vreme',
                 accessor: 'vremenske_okoliscine.ime',
                 width: 150,

@@ -1,16 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import ReactApexChart from 'react-apexcharts'
 
 import './Graphs.css'
+import apiClient from "../../api/ApiClient";
 
-class AccidentFrequencyGraph extends React.Component {
-    constructor(props) {
-        super(props);
+function AccidentFrequencyGraph(props) {
 
-        this.state = {
-
+    const state = {
             series: [{
-                name: 'XYZ MOTORS',
+                name: 'Število nesreč',
                 data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 41, 35, 51, 49, 62, 69, 41, 35, 51]
             }],
             options: {
@@ -36,7 +34,7 @@ class AccidentFrequencyGraph extends React.Component {
                 },
                 title: {
                     color: '#ffffff',
-                    text: 'Stock Price Movement',
+                    text: 'Število nesreč na mesec',
                     align: 'left'
                 },
                 fill: {
@@ -65,7 +63,7 @@ class AccidentFrequencyGraph extends React.Component {
                     tickAmount: 10,
                     labels: {
                         formatter: function(value, timestamp, opts) {
-                            return opts.dateFormatter(new Date(timestamp), 'dd MMM')
+                            return opts.dateFormatter(new Date(timestamp), 'MMM.yy')
                         }
                     }
                 },
@@ -78,22 +76,25 @@ class AccidentFrequencyGraph extends React.Component {
                     }
                 }
             },
-
-
         };
+
+    async function fetchData(){
+        try {
+            const response = await apiClient.get("");
+            state.series.data = response.data.yaxis; // TODO
+            state.options.xaxis.categories = response.data.xaxis // TODO
+        }
+        catch (error) {
+            console.log(error);
+        }
+
     }
 
-    render() {
-        return (
-
-
+    return (
             <div id="chart" className='customtextc'>
-                <ReactApexChart options={this.state.options} series={this.state.series} type="area" height={350} />
+                <ReactApexChart options={state.options} series={state.series} type="area" height={350} />
             </div>
-
-
         );
-    }
 }
 
 export default AccidentFrequencyGraph;
